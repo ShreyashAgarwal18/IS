@@ -1,0 +1,102 @@
+/* Simple, clean styling for the Diffie-Hellman demo */
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.subtitle {
+    text-align: center;
+    color: #777;
+    margin-bottom: 25px;
+}
+
+.box {
+    background: #f9f9f9;
+    border-left: 4px solid #4a90e2;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+}
+
+.box.alice {
+    border-left-color: #e94e77;
+}
+
+.box.result {
+    border-left-color: #2ecc71;
+    background: #f0fff4;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+input[type="number"] {
+    padding: 6px 10px;
+    width: 120px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #357abd;
+}
+
+.hint {
+    font-size: 13px;
+    color: #666;
+    margin: 5px 0 0 0;
+    font-style: italic;
+}
+
+span {
+    font-weight: bold;
+    color: #2c3e50;
+    font-family: monospace;
+}
+
+#finalMsg {
+    text-align: center;
+    color: #2ecc71;
+    margin-top: 20px;
+}

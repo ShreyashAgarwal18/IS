@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diffie-Hellman Key Exchange</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Diffie-Hellman Key Exchange</h1>
+        <p class="subtitle">You are Alice. The browser plays the role of Bob.</p>
+
+        <!-- ====== Step 1: Public values ====== -->
+        <div class="box">
+            <h2>Step 1 - Public Values (agreed by both Alice and Bob)</h2>
+            <label>Prime number (p):
+                <input type="number" id="p" value="23">
+            </label>
+            <label>Base / Generator (g):
+                <input type="number" id="g" value="5">
+            </label>
+        </div>
+
+        <!-- ====== Step 2: Alice's secret ====== -->
+        <div class="box alice">
+            <h2>Step 2 - Alice's Private Key</h2>
+            <label>Enter your secret number (a):
+                <input type="number" id="a" value="6">
+            </label>
+            <p class="hint">Keep this secret! Bob will never see it.</p>
+        </div>
+
+        <!-- ====== Action button ====== -->
+        <button onclick="startExchange()">Start Key Exchange</button>
+
+        <!-- ====== Step 3: Results ====== -->
+        <div class="box result" id="result" style="display:none;">
+
+            <h2>Step 3 - Public Keys Exchanged</h2>
+            <p><b>Alice sends to Bob:</b> A = g<sup>a</sup> mod p = <span id="A"></span></p>
+            <p><b>Bob sends to Alice:</b> B = g<sup>b</sup> mod p = <span id="B"></span></p>
+            <p class="hint">Bob's secret (b) was randomly chosen: <span id="b"></span></p>
+
+            <h2>Step 4 - Shared Secret Computed Independently</h2>
+            <p><b>Alice computes:</b> S = B<sup>a</sup> mod p = <span id="aliceSecret"></span></p>
+            <p><b>Bob computes:</b> &nbsp;&nbsp;S = A<sup>b</sup> mod p = <span id="bobSecret"></span></p>
+
+            <h2 id="finalMsg"></h2>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

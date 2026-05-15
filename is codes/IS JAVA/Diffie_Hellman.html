@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Diffie-Hellman Key Exchange</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    text-align: center;
+    padding: 30px;
+}
+
+.container {
+    background: rgba(255,255,255,0.1);
+    padding: 25px;
+    border-radius: 15px;
+    width: 380px;
+    margin: auto;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+h3 {
+    margin-top: 15px;
+    color: #00ffcc;
+}
+
+label {
+    font-size: 13px;
+    opacity: 0.85;
+}
+
+input {
+    width: 90%;
+    padding: 8px;
+    margin: 6px 0 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+}
+
+button {
+    padding: 10px 20px;
+    background: #00c6ff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0072ff;
+}
+
+.result {
+    margin-top: 20px;
+    text-align: left;
+    background: rgba(0,0,0,0.3);
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.highlight {
+    color: #00ffcc;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🔐 Diffie-Hellman Key Exchange Simulator</h2>
+
+<div class="container">
+
+    <h3>🔹 Public Parameters</h3>
+    
+    <label>Prime Number (p)</label><br>
+    <input type="number" id="p" value="23">
+
+    <label>Generator (g)</label><br>
+    <input type="number" id="g" value="5">
+
+
+    <h3>🔹 Alice (User Input)</h3>
+    
+    <label>Alice's Private Key (a)</label><br>
+    <input type="number" id="a" value="6">
+
+    <br>
+    <button onclick="runDH()">Generate Shared Key</button>
+
+    <div class="result" id="output"></div>
+
+</div>
+
+<script>
+// Fast modular exponentiation
+function modExp(base, exp, mod) {
+    let result = 1;
+    base %= mod;
+
+    while (exp > 0) {
+        if (exp % 2 === 1)
+            result = (result * base) % mod;
+
+        exp = Math.floor(exp / 2);
+        base = (base * base) % mod;
+    }
+    return result;
+}
+
+function runDH() {
+    let p = parseInt(document.getElementById("p").value);
+    let g = parseInt(document.getElementById("g").value);
+    let a = parseInt(document.getElementById("a").value);
+
+    if (!p || !g || !a) {
+        alert("Please enter valid inputs!");
+        return;
+    }
+
+    // Bob (system) private key
+    let b = Math.floor(Math.random() * 10) + 1;
+
+    // Public keys
+    let A = modExp(g, a, p);
+    let B = modExp(g, b, p);
+
+    // Shared secret
+    let keyAlice = modExp(B, a, p);
+    let keyBob = modExp(A, b, p);
+
+    document.getElementById("output").innerHTML = `
+        <p><span class="highlight">Alice Private Key (a):</span> ${a}</p>
+        <p><span class="highlight">Bob Private Key (b):</span> ${b}</p>
+
+        <hr>
+
+        <h4>Public Key Generation</h4>
+        <p><span class="highlight">A = g^a mod p:</span> ${A}</p>
+        <p><span class="highlight">B = g^b mod p:</span> ${B}</p>
+
+        <hr>
+
+        <h4>Shared Secret Computation</h4>
+        <p><span class="highlight">Alice computes:</span> ${keyAlice}</p>
+        <p><span class="highlight">Bob computes:</span> ${keyBob}</p>
+
+        <hr>
+
+        <h4>Final Result</h4>
+        <p style="color:${keyAlice === keyBob ? '#00ffcc' : 'red'};">
+            ${keyAlice === keyBob 
+            ? "✔ Shared Keys Match (Secure Communication Established)" 
+            : "❌ Keys Do Not Match"}
+        </p>
+    `;
+}
+</script>
+
+</body>
+</html>
